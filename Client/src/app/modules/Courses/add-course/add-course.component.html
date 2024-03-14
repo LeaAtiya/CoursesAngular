@@ -1,0 +1,47 @@
+<form [formGroup]="courseForm" *ngIf="isComponentVisible">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" [value]="course?.name" formControlName="name">
+        <div class="alert alert-danger" *ngIf="courseForm.controls['name'].errors?.['required']">required!!</div>
+        <div class="alert alert-danger" *ngIf="courseForm.controls['name'].errors?.['minlength']">the minimum
+            is 2
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" class="form-control" id="startDate" [value]="course?.startDate" formControlName="startDate">
+        <div class="alert alert-danger" *ngIf="courseForm.controls['startDate'].errors?.['required']">required!!</div>
+
+    </div>
+    <div class="form-group">
+        <label for="image">Image:</label>
+        <input type="text" class="form-control" id="image" [value]="course?.image" formControlName="image">
+        <div class="alert alert-danger" *ngIf="courseForm.controls['image'].errors?.['required']">required!!</div>
+
+    </div>
+    <label for="syl">The subjects of the lesson:</label>
+    <ng-container *ngFor="let input of inputs; let i = index">
+        <input id="syl" [value]="course?.courseSyllabus" class="form-control" (change)="onInput($event, i)">
+        <div class="alert alert-danger" *ngIf="inputs.length<2">required!!</div>
+    </ng-container>
+    <div class="form-group">
+        <label for="learningWay">Learning Way:</label>
+        <br>
+        <input type="radio" value=0 name="learningWay" formControlName="learningWay" />Frontal
+        <br>
+        <input type="radio" value=1 name="learningWay" formControlName="learningWay" />Zoom
+    </div>
+    <div class="form-group">
+        <label for="categoryId">Category:</label>
+        <select class="form-control" [value]="course?.categoryId" formControlName="categoryId">
+            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="courseForm.controls['categoryId'].errors?.['required']">required!!</div>
+    </div>
+
+    <button class="btn btn-primary" (click)="saveNewCourse()" [disabled]="!courseForm.valid||inputs.length<2"
+        >Save</button>
+    <button class="btn btn-primary" *ngIf="isEdit"(click)="CloseDetails()" 
+        >Cancel</button>
+</form>

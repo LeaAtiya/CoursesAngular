@@ -1,0 +1,30 @@
+<div class="card" style="width:400px" [ngClass]="{'active':isStartDateInNextWeek}">
+    <img class="card-img-top"  class="means"src={{course?.image}} alt="Card image">
+    <div class="card-body">
+        <h4 class="card-title">{{course?.name}}</h4>
+        <p>
+            <strong>Learning Way:</strong>
+            {{learningWay[course?.learningWay!]}}
+            <img style="height: 50px ; width: 50px;" src="{{course?.learningWay|IconPipe}}">
+        </p>
+        <div>lesson's amount</div>
+        <div>{{course?.lessonsAmount}}</div>
+        <ul class="card-text list-group">
+            The syllabus is :
+            <li *ngFor="let c of course?.courseSyllabus" class="list-group-item">
+               <img class="mini" src="../../../../assets/Courses/checked.png" alt=""> {{c}}
+            </li>
+        </ul>
+        <div>{{course?.startDate | date: 'shortDate' }}</div>
+        <div>
+            <img src={{IconRouting(course?.categoryId!).iconRouting}} class="mini" alt=""/>
+            {{IconRouting(course?.categoryId!).name}}
+        </div>
+        <button (click)="ifEditCourse()" *ngIf="isLecturer&&currentUser!.id==course?.lecturerId!"
+            class="btn btn-primary" (onClose)="changeEdit()">Update Details</button>
+
+        <edit-course [course]="course"
+            *ngIf="editCourse&&isLecturer&&currentUser!.id==course?.lecturerId!"></edit-course>
+
+    </div>
+</div>

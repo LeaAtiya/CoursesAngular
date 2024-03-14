@@ -1,0 +1,24 @@
+<div class="container">
+    <select name="category" id="category" (change)="changeCategory($event)">
+        <option value="">All Categories</option>
+        <option *ngFor="let n of categories">{{n.name}}</option>
+    </select>
+    <input type="text" name="courseName" placeholder="Enter Course Name" (change)="changeCourseName($event)">
+    <select name="learningWay" id="learningWay" (change)="changeLearningWay($event)">
+        <option value="">All Ways</option>
+        <option *ngFor="let c of learning">{{c}}</option>
+    </select>
+</div>
+<div class="container">
+
+    <ul class="coursesFlex list-group">
+        <li class="list-group-item" style="width:250px" *ngFor="let c of courses">
+            <h4>{{c.name}}</h4>
+            <div>{{c.lessonsAmount}} lessons</div>
+
+            <button (click)="selectCourse(c)" class="btn btn-primary" *ngIf="currentUser">Details</button>
+        </li>
+    </ul>
+</div>
+
+<app-course-details class="container" *ngIf="selectedCourse" [course]="selectedCourse!"></app-course-details>

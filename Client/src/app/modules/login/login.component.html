@@ -1,0 +1,18 @@
+<form [formGroup]="usersForm">
+    <div class="form-group">
+        <label for="usr">Name:</label>
+        <input type="text" class="form-control" id="usr" formControlName="name">
+    </div>
+
+    <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="pwd" formControlName="password">
+    </div>
+    <div class="form-group">
+        <label *ngIf="isLecturer" for="course">Course:</label>
+        <input type="text" *ngIf="isLecturer" class="form-control" id="course" formControlName="course">
+    </div>
+</form>
+<button class="btn btn-success" (click)="checkUser()">Login</button>
+<br />
+<a class="a" *ngIf="!isLecturer" (click)="lecturer()">Login Lecturer</a>

@@ -1,0 +1,37 @@
+<form [formGroup]="usersForm">
+    <div class="form-group">
+        <label for="usr">Name:</label>
+        <input type="text" class="form-control" id="usr" [value]="userName" formControlName="name">
+        <div class="alert alert-danger" *ngIf="usersForm.controls['name'].errors?.['required']">required!!</div>
+        <div class="alert alert-danger" *ngIf="usersForm.controls['name'].errors?.['minlength']">the minimum
+            is 2
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="pwd" formControlName="password">
+        <div class="alert alert-danger" *ngIf="usersForm.controls['password'].errors?.['required']">required!!</div>
+        <div class="alert alert-danger" *ngIf="usersForm.controls['password'].errors?.['minlength']">the minimum
+            is 4
+        </div>
+        <div class="alert alert-danger" *ngIf="usersForm.controls['password'].errors?.['maxlength']">the maximum
+            is 4
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" class="form-control" id="address" formControlName="address">
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" formControlName="email">
+        <div class="alert alert-danger" *ngIf="usersForm.controls['email'].errors?.['required']">required!!</div>
+        <div class="alert alert-danger" *ngIf="usersForm.controls['email'].errors?.['email']">your email
+            is invalid
+        </div>
+    </div>
+
+</form>
+<button class="btn btn-success" (click)="addUser()" [disabled]="!usersForm.valid">Register</button>
